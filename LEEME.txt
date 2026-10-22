@@ -1,0 +1,17 @@
+GUÍA DE ESTUDIO: COMPATIBILIDAD ENTRE NAVEGADORES
+==================================================
+Estructura:
+  index.html      -> estructura (HTML semántico). Comentarios PASO 1, 11 a 18.
+  css/estilo.css  -> estilos y técnicas de compatibilidad. PASO 2 a 10.
+  js/app.js       -> detección de características, checklist y quiz. PASO 19 a 25.
+
+Cómo usarla:
+  1. Descomprime la carpeta completa (mantén las subcarpetas css/ y js/).
+  2. Abre index.html con doble clic en cualquier navegador.
+  3. Abre los tres archivos en un editor y lee los comentarios PASO / ESTUDIO en orden.
+
+Orden de estudio sugerido:
+  1) index.html: DOCTYPE, lang, meta viewport, etiquetas semánticas.
+  2) estilo.css: variables con fallback, reset, flex + @supports grid, prefijos, transition/transform, media queries.
+  3) app.js: IIFE, ES5, try/catch en localStorage, CSS.supports(), quiz.
+  4) Practica: abre DevTools (F12), desactiva propiedades y observa los fallbacks.

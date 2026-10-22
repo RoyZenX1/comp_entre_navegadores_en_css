@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- PASO 1 · ESTUDIO: DOCTYPE evita el "quirks mode" (cada navegador renderiza distinto sin él). lang="es" ayuda a SEO y accesibilidad. -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<!-- ESTUDIO: X-UA-Compatible solo importaba para Internet Explorer (retirado en 2022). Se deja como referencia histórica. -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- ESTUDIO: viewport = base del diseño responsive en móviles (Android/iOS) -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guía de estudio · Compatibilidad entre navegadores</title>
+<!-- PASO 2 · ESTUDIO: los estilos viven en un archivo aparte (css/estilo.css). Separar HTML, CSS y JS facilita el mantenimiento y el caché del navegador. -->
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- PASO 11 · HTML SEMÁNTICO (header, nav, main, section, footer). ESTUDIO: mejora SEO y accesibilidad. -->
+<header class="card hero">
+  <h1>Compatibilidad entre navegadores en CSS</h1>
+  <p>Guía interactiva · Hojas de Estilo en Cascada Avanzado (UTP, Semana 11)</p>
+  <p><button class="btn alt" id="tema" type="button">Cambiar tema claro/oscuro</button></p>
+  <nav class="nav" aria-label="Secciones">
+    <a href="#s1">1. Tu navegador</a><a href="#s2">2. Motores</a><a href="#s3">3. Beneficios</a>
+    <a href="#s4">4. Problemas</a><a href="#s5">5. Demo</a><a href="#s6">6. Pruebas</a><a href="#s7">7. Quiz</a>
+  </nav>
+</header>
+
+<main>
+<!-- PASO 12 · SECCIÓN 1: detección. ESTUDIO: es mejor detectar CARACTERÍSTICAS que el nombre del navegador. -->
+<section class="card" id="s1">
+  <h2>1. Tu navegador y qué soporta</h2>
+  <p id="info">Analizando…</p>
+  <p class="muted">Zen y Tor Browser se identifican como Firefox (Gecko). Brave, Comet, Vivaldi, Opera y Edge se basan en Chromium (Blink), y algunos ocultan su nombre. Por eso se usa <strong>detección de características</strong> y no el nombre.</p>
+  <div class="grid" id="feat"></div>
+</section>
+
+<!-- PASO 13 · SECCIÓN 2: motores de renderizado -->
+<section class="card" id="s2">
+  <h2>2. Navegadores y motores de renderizado</h2>
+  <div class="scroll"><table>
+    <tr><th>Navegador</th><th>Motor</th><th>Prefijo antiguo</th><th>Nota</th></tr>
+    <tr><td>Chrome, Edge, Opera, Brave, Vivaldi, Comet</td><td>Blink (Chromium)</td><td><code>-webkit-</code></td><td>Comportamiento casi idéntico entre sí</td></tr>
+    <tr><td>Firefox, Zen, Tor Browser</td><td>Gecko</td><td><code>-moz-</code></td><td>Tor limita datos para proteger la privacidad</td></tr>
+    <tr><td>Safari (y todo navegador en iOS)</td><td>WebKit</td><td><code>-webkit-</code></td><td>Suele ir más lento con funciones nuevas</td></tr>
+    <tr><td>Internet Explorer (retirado 2022)</td><td>Trident</td><td><code>-ms-</code></td><td>Solo interés histórico</td></tr>
+  </table></div>
+  <p><strong>Idea clave:</strong> cada motor interpreta los estándares a su ritmo, por eso una misma página puede verse distinta.</p>
+</section>
+
+<!-- PASO 14 · SECCIÓN 3: beneficios -->
+<section class="card" id="s3">
+  <h2>3. Beneficios de la compatibilidad</h2>
+  <div class="grid">
+    <div class="item"><strong>🌍 Alcance más amplio</strong><br>Más usuarios acceden, sin importar su navegador.</div>
+    <div class="item"><strong>🎯 Experiencia consistente</strong><br>Misma apariencia y función en todas las plataformas.</div>
+    <div class="item"><strong>🔎 Mejor SEO</strong><br>Un sitio fácil de usar obtiene mejores posiciones.</div>
+  </div>
+</section>
+
+<!-- PASO 15 · SECCIÓN 4: 9 problemas y soluciones -->
+<section class="card" id="s4">
+  <h2>4. Nueve problemas comunes y su solución</h2>
+  <details open><summary>1. Flexbox</summary><p>Problema: implementación distinta en IE antiguo. Solución: prefijos, revisar Can I Use y fallback con <code>block</code>/<code>inline-block</code>.</p>
+<pre>.c{ display:block; display:-webkit-box; display:-ms-flexbox; display:flex; }</pre></details>
+  <details><summary>2. Grid Layout</summary><p>Problema: soporte limitado en navegadores viejos. Solución: layout alternativo con flex o floats y <code>@supports (display:grid)</code>.</p></details>
+  <details><summary>3. Propiedades de color</summary><p>Problema: <code>rgba</code>/<code>hsla</code> en navegadores viejos. Solución: hexadecimal antes.</p>
+<pre>background:#333; background:rgba(0,0,0,.8);</pre></details>
+  <details><summary>4. Sombras y bordes redondeados</summary><p>Problema: <code>box-shadow</code>/<code>border-radius</code>. Solución: prefijos o imágenes de fondo.</p></details>
+  <details><summary>5. Fuentes personalizadas</summary><p>Problema: la carga varía. Solución: WOFF y WOFF2 en <code>@font-face</code>.</p>
+<pre>src:url(f.woff2) format("woff2"), url(f.woff) format("woff");</pre></details>
+  <details><summary>6. Pseudoclases</summary><p>Problema: <code>:nth-child</code>, <code>:last-child</code> en navegadores viejos. Solución: clases manuales o JavaScript.</p></details>
+  <details><summary>7. Transiciones y animaciones</summary><p>Problema: implementación distinta. Solución: prefijos y estado inicial definido.</p></details>
+  <details><summary>8. Consultas de medida (calc)</summary><p>Problema: <code>calc()</code> varía. Solución: probar y dar valor alternativo antes.</p>
+<pre>width:90%; width:calc(100% - 40px);</pre></details>
+  <details><summary>9. Espaciado y margen</summary><p>Problema: colapso de márgenes. Solución: <code>overflow:auto</code> en el contenedor o usar <code>padding</code>.</p></details>
+  <p class="muted"><strong>Regla de oro:</strong> propiedad estándar siempre al final, después de las prefijadas.</p>
+</section>
+
+<!-- PASO 16 · SECCIÓN 5: demo en vivo de lo aprendido -->
+<section class="card" id="s5">
+  <h2>5. Demo: transición, transformación y @supports</h2>
+  <p>Pasa el mouse (o enfoca con Tab) sobre el botón: la <strong>transición</strong> suaviza y la <strong>transformación</strong> lo sube 3px.</p>
+  <button class="btn" type="button">Haz clic aquí</button>
+  <div class="demo">Caja con borde, bordes redondeados, sombra moderna y ancho con <code>calc()</code>.</div>
+</section>
+
+<!-- PASO 17 · SECCIÓN 6: prueba y depuración (checklist guardado con try/catch) -->
+<section class="card" id="s6">
+  <h2>6. Prueba y depuración</h2>
+  <p>Herramientas: <strong>BrowserStack</strong>, <strong>Sauce Labs</strong>, <strong>Can I Use</strong>, <strong>DevTools (F12)</strong>, <strong>MDN</strong> y <strong>Autoprefixer</strong>. Marca tu avance:</p>
+  <ul class="check" id="lista"></ul>
+</section>
+
+<!-- PASO 18 · SECCIÓN 7: quiz -->
+<section class="card" id="s7">
+  <h2>7. Autoevaluación</h2>
+  <div class="bar"><i id="prog"></i></div>
+  <div id="quiz"></div>
+</section>
+</main>
+
+<footer class="card muted">
+  <p>© 2026 Guía de compatibilidad web. Sin librerías externas: HTML, CSS y JavaScript ES5 que funcionan en Chrome, Edge, Opera, Brave, Vivaldi, Comet, Firefox, Zen, Tor Browser y Safari.</p>
+</footer>
+</div>
+
+<!-- PASO 19 · ESTUDIO: el JavaScript vive en js/app.js. Va al final del body para que el HTML cargue primero. -->
+<script src="js/app.js"></script>
+<noscript><p style="padding:12px">Activa JavaScript para ver la detección y el quiz. El resto del contenido funciona sin él.</p></noscript>
+</body>
+</html>
